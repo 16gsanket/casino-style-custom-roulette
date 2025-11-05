@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import WebFont from 'webfontloader';
 
 import {
   getQuantity,
@@ -7,7 +6,7 @@ import {
   isCustomFont,
   makeClassKey,
 } from '../../utils';
-import { roulettePointer } from '../common/images';
+import { roulettePointerSrc } from '../common/images';
 import {
   RotationContainer,
   RouletteContainer,
@@ -175,21 +174,24 @@ export const Wheel = ({
       }
     }
 
-    if (fontsToFetch?.length > 0) {
+    if (fontsToFetch?.length > 0 && typeof window !== 'undefined') {
       try {
-        WebFont.load({
-          google: {
-            families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-          },
-          timeout: 1000,
-          fontactive() {
-            setRouletteUpdater(!rouletteUpdater);
-          },
-          active() {
-            setIsFontLoaded(true);
-            setRouletteUpdater(!rouletteUpdater);
-          },
-        });
+        (async () => {
+          const WebFont = (await import('webfontloader')).default;
+          WebFont.load({
+            google: {
+              families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+            },
+            timeout: 1000,
+            fontactive() {
+              setRouletteUpdater(!rouletteUpdater);
+            },
+            active() {
+              setIsFontLoaded(true);
+              setRouletteUpdater(!rouletteUpdater);
+            },
+          });
+        })();
       } catch (err) {
         console.log('Error loading webfonts:', err);
       }
@@ -205,15 +207,20 @@ export const Wheel = ({
 
   useEffect(() => {
     if (mustStartSpinning && !isCurrentlySpinning) {
+      if (!prizeMap || prizeMap.length === 0) return;
+      const prizeRow = prizeMap[prizeNumber];
+      if (!Array.isArray(prizeRow) || prizeRow.length === 0) return;
+
       setIsCurrentlySpinning(true);
       startSpinning();
-      const selectedPrize =
-        prizeMap[prizeNumber][
-          Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
-        ];
+      const selectedPrize = prizeRow[
+        Math.floor(Math.random() * prizeRow.length)
+      ];
+      const totalQuantity = getQuantity(prizeMap);
+      if (Number.isNaN(totalQuantity)) return;
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedPrize,
-        getQuantity(prizeMap)
+        totalQuantity
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
@@ -273,13 +280,13 @@ export const Wheel = ({
     >
       <RotationContainer
         className={getRouletteClass()}
-        classKey={classKey}
-        startSpinningTime={startSpinningTime}
-        continueSpinningTime={continueSpinningTime}
-        stopSpinningTime={stopSpinningTime}
-        startRotationDegrees={startRotationDegrees}
-        finalRotationDegrees={finalRotationDegrees}
-        disableInitialAnimation={disableInitialAnimation}
+        $classKey={classKey}
+        $startSpinningTime={startSpinningTime}
+        $continueSpinningTime={continueSpinningTime}
+        $stopSpinningTime={stopSpinningTime}
+        $startRotationDegrees={startRotationDegrees}
+        $finalRotationDegrees={finalRotationDegrees}
+        $disableInitialAnimation={disableInitialAnimation}
       >
         <WheelCanvas
           width="900"
@@ -304,7 +311,7 @@ export const Wheel = ({
       </RotationContainer>
       <RoulettePointerImage
         style={pointerProps?.style}
-        src={pointerProps?.src || roulettePointer.src}
+        src={pointerProps?.src || roulettePointerSrc}
         alt="roulette-static"
       />
     </RouletteContainer>

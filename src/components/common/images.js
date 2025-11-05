@@ -2,7 +2,7 @@
 
 import Icon from '../../assets/roulette-pointer.png';
 
-const roulettePointer = new Image();
-roulettePointer.src = Icon;
+// Export the URL string; create Image only in browser code paths
+const roulettePointerSrc = Icon;
 
-export { roulettePointer };
+export { roulettePointerSrc };

@@ -15,13 +15,13 @@ export const RouletteContainer = styled.div`
 `;
 
 interface RotationContainerProps {
-  classKey: string;
-  startSpinningTime: number;
-  continueSpinningTime: number;
-  stopSpinningTime: number;
-  startRotationDegrees: number;
-  finalRotationDegrees: number;
-  disableInitialAnimation: boolean;
+  $classKey: string;
+  $startSpinningTime: number;
+  $continueSpinningTime: number;
+  $stopSpinningTime: number;
+  $startRotationDegrees: number;
+  $finalRotationDegrees: number;
+  $disableInitialAnimation: boolean;
 }
 
 export const RotationContainer = styled.div<RotationContainerProps>`
@@ -34,49 +34,49 @@ export const RotationContainer = styled.div<RotationContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: rotate(${props => props.startRotationDegrees}deg);
+  transform: rotate(${props => props.$startRotationDegrees}deg);
 
   &.started-spinning {
-    animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
-          startSpinningTime / 1000}s cubic-bezier(
+    animation: spin-${({ $classKey }) => $classKey} ${({ $startSpinningTime }) =>
+          $startSpinningTime / 1000}s cubic-bezier(
           0.71,
-          ${props => (props.disableInitialAnimation ? 0 : -0.29)},
+          ${props => (props.$disableInitialAnimation ? 0 : -0.29)},
           0.96,
           0.9
         ) 0s 1 normal forwards running,
-      continueSpin-${({ classKey }) => classKey} ${({ continueSpinningTime }) =>
-          continueSpinningTime / 1000}s linear ${({ startSpinningTime }) =>
-          startSpinningTime / 1000}s 1 normal forwards running,
-      stopSpin-${({ classKey }) => classKey} ${({ stopSpinningTime }) =>
-          stopSpinningTime / 1000}s cubic-bezier(0, 0, 0.35, 1.02) ${({
-          startSpinningTime,
-          continueSpinningTime,
-        }) => (startSpinningTime + continueSpinningTime) / 1000}s 1 normal forwards
+      continueSpin-${({ $classKey }) => $classKey} ${({ $continueSpinningTime }) =>
+          $continueSpinningTime / 1000}s linear ${({ $startSpinningTime }) =>
+          $startSpinningTime / 1000}s 1 normal forwards running,
+      stopSpin-${({ $classKey }) => $classKey} ${({ $stopSpinningTime }) =>
+          $stopSpinningTime / 1000}s cubic-bezier(0, 0, 0.35, 1.02) ${({
+          $startSpinningTime,
+          $continueSpinningTime,
+        }) => ($startSpinningTime + $continueSpinningTime) / 1000}s 1 normal forwards
         running;
   }
 
-  @keyframes spin-${({ classKey }) => classKey} {
+  @keyframes spin-${({ $classKey }) => $classKey} {
     from {
-      transform: rotate(${props => props.startRotationDegrees}deg);
+      transform: rotate(${props => props.$startRotationDegrees}deg);
     }
     to {
-      transform: rotate(${props => props.startRotationDegrees + 360}deg);
+      transform: rotate(${props => props.$startRotationDegrees + 360}deg);
     }
   }
-  @keyframes continueSpin-${({ classKey }) => classKey} {
+  @keyframes continueSpin-${({ $classKey }) => $classKey} {
     from {
-      transform: rotate(${props => props.startRotationDegrees}deg);
+      transform: rotate(${props => props.$startRotationDegrees}deg);
     }
     to {
-      transform: rotate(${props => props.startRotationDegrees + 360}deg);
+      transform: rotate(${props => props.$startRotationDegrees + 360}deg);
     }
   }
-  @keyframes stopSpin-${({ classKey }) => classKey} {
+  @keyframes stopSpin-${({ $classKey }) => $classKey} {
     from {
-      transform: rotate(${props => props.startRotationDegrees}deg);
+      transform: rotate(${props => props.$startRotationDegrees}deg);
     }
     to {
-      transform: rotate(${props => 1440 + props.finalRotationDegrees}deg);
+      transform: rotate(${props => 1440 + props.$finalRotationDegrees}deg);
     }
   }
 `;

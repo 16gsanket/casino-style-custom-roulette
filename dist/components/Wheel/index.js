@@ -18,7 +18,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import React, { useEffect, useRef, useState } from 'react';
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useEffect, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont, makeClassKey, } from '../../utils';
 import { roulettePointer } from '../common/images';
@@ -175,11 +176,8 @@ export var Wheel = function (_a) {
     if (!isDataUpdated) {
         return null;
     }
-    return (React.createElement(RouletteContainer, { style: !isFontLoaded ||
+    return (_jsxs(RouletteContainer, { style: !isFontLoaded ||
             (totalImages > 0 && loadedImagesCounter !== totalImages)
             ? { visibility: 'hidden' }
-            : {} },
-        React.createElement(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees, disableInitialAnimation: disableInitialAnimation },
-            React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontWeight: fontWeight, fontStyle: fontStyle, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance })),
-        React.createElement(RoulettePointerImage, { style: pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.style, src: (pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.src) || roulettePointer.src, alt: "roulette-static" })));
+            : {}, children: [_jsx(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees, disableInitialAnimation: disableInitialAnimation, children: _jsx(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontWeight: fontWeight, fontStyle: fontStyle, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance }) }), _jsx(RoulettePointerImage, { style: pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.style, src: (pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.src) || roulettePointer.src, alt: "roulette-static" })] }));
 };

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 interface ImagePropsLocal extends ImageProps {
     _imageHTML?: HTMLImageElement;
 }

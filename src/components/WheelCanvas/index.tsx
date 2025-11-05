@@ -50,7 +50,7 @@ const drawRadialBorder = (
 };
 
 const drawWheel = (
-  canvasRef: RefObject<HTMLCanvasElement>,
+  canvasRef: RefObject<HTMLCanvasElement | null>,
   data: WheelData[],
   drawWheelProps: DrawWheelProps
 ) => {
@@ -236,7 +236,7 @@ const WheelCanvas = ({
   prizeMap,
   rouletteUpdater,
   textDistance,
-}: WheelCanvasProps): JSX.Element => {
+}: WheelCanvasProps): React.JSX.Element => {
   const canvasRef = createRef<HTMLCanvasElement>();
   const drawWheelProps = {
     outerBorderColor,
@@ -257,7 +257,9 @@ const WheelCanvas = ({
   };
 
   useEffect(() => {
-    drawWheel(canvasRef, data, drawWheelProps);
+    if (canvasRef.current) {
+      drawWheel(canvasRef, data, drawWheelProps);
+    }
   }, [canvasRef, data, drawWheelProps, rouletteUpdater]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;

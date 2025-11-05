@@ -1,1 +1,1 @@
-export const WheelCanvasStyle: any;
+export const WheelCanvasStyle: import("styled-components/dist/types").IStyledComponentBase<"web", import("styled-components").FastOmit<import("react").DetailedHTMLProps<import("react").CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>, never>> & string;

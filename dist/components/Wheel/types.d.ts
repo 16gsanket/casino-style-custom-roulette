@@ -10,6 +10,8 @@ export interface WheelData {
 export interface StyleType {
     backgroundColor?: string;
     textColor?: string;
+    textStrokeColor?: string;
+    textStrokeWidth?: number;
     fontFamily?: string;
     fontSize?: number;
     fontWeight?: number | string;

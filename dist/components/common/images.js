@@ -1,5 +1,5 @@
 // IMAGES
 import Icon from '../../assets/roulette-pointer.png';
-var roulettePointer = new Image();
-roulettePointer.src = Icon;
-export { roulettePointer };
+// Export the URL string; create Image only in browser code paths
+var roulettePointerSrc = Icon;
+export { roulettePointerSrc };

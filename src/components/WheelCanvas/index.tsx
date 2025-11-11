@@ -202,6 +202,21 @@ const drawWheel = (
         } ${(style?.fontSize || fontSize) * 2}px ${
           style?.fontFamily || fontFamily
         }, Helvetica, Arial`;
+        
+        // Draw text stroke/outline if textStrokeColor is provided
+        if (style?.textStrokeColor) {
+          ctx.strokeStyle = style.textStrokeColor;
+          ctx.lineWidth = (style?.textStrokeWidth || 3) * 2; // Multiply by 2 to match font size scaling
+          ctx.lineJoin = 'round';
+          ctx.lineCap = 'round';
+          ctx.strokeText(
+            text || '',
+            -ctx.measureText(text || '').width / 2,
+            fontSize / 2.7
+          );
+        }
+        
+        // Draw text fill
         ctx.fillStyle = (style && style.textColor) as string;
         ctx.fillText(
           text || '',

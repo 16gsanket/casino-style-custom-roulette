@@ -85,6 +85,15 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
                 ctx.rotate(contentRotationAngle);
                 var text = data[i].option;
                 ctx.font = "".concat((style === null || style === void 0 ? void 0 : style.fontStyle) || fontStyle, " ").concat((style === null || style === void 0 ? void 0 : style.fontWeight) || fontWeight, " ").concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, ", Helvetica, Arial");
+                // Draw text stroke/outline if textStrokeColor is provided
+                if (style === null || style === void 0 ? void 0 : style.textStrokeColor) {
+                    ctx.strokeStyle = style.textStrokeColor;
+                    ctx.lineWidth = ((style === null || style === void 0 ? void 0 : style.textStrokeWidth) || 3) * 2; // Multiply by 2 to match font size scaling
+                    ctx.lineJoin = 'round';
+                    ctx.lineCap = 'round';
+                    ctx.strokeText(text || '', -ctx.measureText(text || '').width / 2, fontSize / 2.7);
+                }
+                // Draw text fill
                 ctx.fillStyle = (style && style.textColor);
                 ctx.fillText(text || '', -ctx.measureText(text || '').width / 2, fontSize / 2.7);
             }
